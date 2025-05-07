@@ -1,0 +1,6 @@
+yfinance 
+streamlit 
+altair 
+plotly 
+watchdog 
+numpy
