@@ -7,6 +7,7 @@ import numpy as np
 import requests
 import datetime
 import json
+import os
 
 @st.cache_data
 def fetch_stock_info(symbol): 
