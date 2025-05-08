@@ -441,7 +441,7 @@ df1 = pd.DataFrame(data_colonna1)
 df2 = pd.DataFrame(data_colonna2)
 
 # Layout a due colonne
-st.markdown("### Informazioni Finanziarie")
+st.markdown("### Principali Indicatori Finanziari")
 
 col1, col2 = st.columns(2)
 
