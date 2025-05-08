@@ -387,7 +387,7 @@ def safe_format(value, format_str):
 # Main application ---------------------------------------------------
 
 st.title('Analisi Fondamentale Azioni')
-symbol = st.text_input('Inserisci il Ticker del Titolo (Come da Watchlist ad esempio ISP.MI)', 'AAPL')
+symbol = st.text_input('Inserisci il Ticker del Titolo (Come da [Watchlist](https://diramco.com/watchlist-azioni-diramco/) ad esempio per la Borsa Italiana ISP.MI)', 'AAPL')
 
 information = fetch_stock_info(symbol)
 
@@ -401,7 +401,7 @@ change_sign = "+" if percent_change >= 0 else ""
 
 st.subheader(f'Nome: {information["longName"]}')
 # Uso subheader con HTML per mantenere lo stesso stile degli altri sottotitoli
-st.markdown(f'<h3>Prezzo: ${current_price:.2f} <span style="color:{color}">({change_sign}{percent_change:.2f}%)</span></h3>', unsafe_allow_html=True)
+st.markdown(f'<h3>Prezzo: {current_price:.2f} <span style="color:{color}">({change_sign}{percent_change:.2f}%)</span></h3>', unsafe_allow_html=True)
 st.subheader(f'Capitalizzazione: {information["marketCap"]/1000000000:.1f} Miliardi')
 st.subheader(f'Settore: {information["sector"]}')
 
@@ -409,15 +409,15 @@ st.subheader(f'Settore: {information["sector"]}')
 data_colonna1 = {
     'Indicatori di Prezzo': [
         'Rendimento Dividendo', 
-        'PE', 
-        'PB',
-        'PEG'
+        'PE: Prezzo Utili', 
+        'FPE: Prezzo Utili Futuri',
+        'PB: Prezzo/Book'
     ],
     'Valore': [
         safe_format(information.get("dividendYield", 0), "{:.2f}%"),
         safe_format(information.get("trailingPE", 0), "{:.2f}"),
-        safe_format(information.get("priceToBook", 0), "{:.1f}"),
-        safe_format(information.get("pegRatio", 0), "{:.2f}")
+        safe_format(information.get("forwardPE", 0), "{:.2f}"),
+        safe_format(information.get("priceToBook", 0), "{:.2f}")
     ]
 }
 
@@ -426,7 +426,7 @@ data_colonna2 = {
         'Payout Ratio',
         'ROE', 
         'Debito/Equity',
-        'Beta'  # Riga vuota per allineare
+        'Beta'  
     ],
     'Valore': [
         safe_format(information.get("payoutRatio", 0), "{:.2f}"),
@@ -456,6 +456,7 @@ with col2:
 price_history = fetch_weekly_price_history(symbol)
 
 st.header('Grafico')
+st.markdown('Puoi visualizzare il grafico con Analisi Tecnica dettagliata e indicatori tecnici avanzati spiegati da IA in [questa pagina](https://diramco.com/analisi-tecnica-ai/)')
 
 price_history_reset = price_history.rename_axis('Data').reset_index()
 candle_stick_chart = go.Figure(data=[go.Candlestick(x=price_history_reset['Data'], 
@@ -482,7 +483,7 @@ with st.spinner("Analizzando le notizie e il sentiment di mercato con IA..."):
 
 # DATI FINANZIARI ----------------------------------------------------------
 st.header('Dati Finanziari')
-selection = st.segmented_control(label='Periodo', options=['Trimestrale', 'Annuale'], default='Trimestrale')
+selection = st.segmented_control(label='Periodo', options=['Trimestrale', 'Annuale'], default='Annuale')
 
 quarterly_financials = fetch_quarterly_financials(symbol)
 annual_financials = fetch_annual_financials(symbol)
