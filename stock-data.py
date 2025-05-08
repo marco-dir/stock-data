@@ -431,7 +431,7 @@ data_colonna2 = {
     'Valore': [
         safe_format(information.get("payoutRatio", 0)*100, "{:.2f}%"),
         safe_format(information.get("returnOnEquity", 0), "{:.2f}"),
-        safe_format(information.get("debtToEquity", 0), "{:.2f}"),
+        safe_format(information.get("debtToEquity", 0), "{:.2f}%"),
         safe_format(information.get("beta", 0), "{:.1f}")
     ]
 }
