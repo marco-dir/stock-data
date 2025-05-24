@@ -386,7 +386,7 @@ def safe_format(value, format_str):
 
 # Main application ---------------------------------------------------
 
-st.title('Analisi Fondamentale Azioni')
+st.title('Analisi Azioni')
 symbol = st.text_input('Inserisci il Ticker del Titolo (Come da [Watchlist](https://diramco.com/watchlist-azioni-diramco/) ad esempio per la Borsa Italiana ISP.MI)', 'AAPL')
 
 information = fetch_stock_info(symbol)
